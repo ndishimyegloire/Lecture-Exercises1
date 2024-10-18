@@ -1,0 +1,95 @@
+1) ANSWER1:
+
+def calculate_rental_cost(start_time, end_time):
+    if start_time < 0 or end_time < 0 or start_time > 24 or end_time > 24 or start_time >= end_time:
+        return "Invalid input"
+
+    total_cost = 0
+    current_time = start_time
+
+    while current_time < end_time:
+        if (0 <= current_time < 7) or (21 <= current_time < 24):
+            total_cost += 500
+        elif (7 <= current_time < 10) or (19 <= current_time < 21):
+            total_cost += 1000
+        elif (10 <= current_time < 19):
+            total_cost += 1500
+        current_time += 1
+
+    return total_cost
+
+start_time = float(input("Enter the starting time (0-24): "))
+end_time = float(input("Enter the ending time (0-24): "))
+
+result = calculate_rental_cost(start_time, end_time)
+print(result)
+
+
+
+2)  ANSWER2:
+
+def identify_mushroom():
+    mushroom_types = {
+        'Agaric jaunissant': {
+            'gills': True,
+            'forest': False,
+            'ring': True,
+            'convex_cup': True
+        },
+        'Cepe de bordeaux': {
+            'gills': False,
+            'forest': True,
+            'ring': False,
+            'convex_cup': False
+        },
+        'Amanite tue-mouche': {
+            'gills': True,
+            'forest': False,
+            'ring': True,
+            'convex_cup': True
+        },
+        'Coprin chevelu': {
+            'gills': True,
+            'forest': False,
+            'ring': True,
+            'convex_cup': False
+        },
+        'Girolle': {
+            'gills': True,
+            'forest': True,
+            'ring': False,
+            'convex_cup': False
+        },
+        'Pied Bleu': {
+            'gills': True,
+            'forest': False,
+            'ring': True,
+            'convex_cup': True
+        }
+    }
+
+    questions = [
+        "Does your mushroom have gills? (yes/no)",
+        "Does your mushroom grow in a forest? (yes/no)",
+        "Does your mushroom have a ring? (yes/no)",
+        "Does your mushroom have a convex cup? (yes/no)"
+    ]
+
+    possible_mushrooms = list(mushroom_types.keys())
+
+    for i in range(3):  # Ask up to 3 questions
+        if len(possible_mushrooms) == 1:
+            break
+        answer = input(questions[i]).strip().lower()
+        for mushroom in possible_mushrooms[:]:
+            if (answer == "yes" and not mushroom_types[mushroom][questions[i].split()[3]]):
+                possible_mushrooms.remove(mushroom)
+            elif (answer == "no" and mushroom_types[mushroom][questions[i].split()[3]]):
+                possible_mushrooms.remove(mushroom)
+
+    if len(possible_mushrooms) == 1:
+        print(f"The mushroom you are thinking of is: {possible_mushrooms[0]}")
+    else:
+        print("I couldn't determine the mushroom based on your answers.")
+
+identify_mushroom()
